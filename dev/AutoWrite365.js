@@ -1,11 +1,9 @@
-(function() {
-    'use strict';
-
-    initWords();
+(function(init) {
+    init();
 
     var textField = document.getElementById("edit-body-und-0-value");
     var story = "";
-    for (var i = 0; i < getRand(365, 400); i++) {
+    for (var i = 0; i < getRand(365, 400); i) {
         story += " " + words[getRand(0, 19)].toProperCase();
         i++;
         story += " " + words[getRand(20, words.length - 1)];
@@ -22,16 +20,14 @@
     }
     textField.value = story;
     textField.focus();
-})();
+})(function() {
+    window.getRand = function(floor, ceiling) {
+        var range = ceiling - floor;
+        var rand = Math.round(range * Math.random()) + floor;
+        console.log("Rand: " + rand);
+        return rand;
+    };
 
-function getRand(floor, ceiling) {
-    var range = ceiling - floor;
-    var rand = Math.round(range * Math.random()) + floor;
-    console.log("Rand: " + rand);
-    return rand;
-}
-
-function initWords() {
     String.prototype.toProperCase = function() {
         return this.replace(/\w\S*/g, function(txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -1039,4 +1035,4 @@ function initWords() {
         "shell",
         "neck"
     ];
-}
+});
