@@ -1,38 +1,61 @@
 (function(init) {
+    // Constants
+    var MIN_WORDS_ENTRY = 365;      // Minimum amount of words in journal entry
+    var MAX_WORDS_ENTRY = 400;      // Maximum amount of words in journal entry
+    var MIN_WORDS_SENTENCE = 5;     // Minimum amount of words in a sentence
+    var MAX_WORDS_SENTENCE = 25;    // Maximum amount of words in a sentence
+    var WORD_THOLD = 20;            // Rank threshold for alternating common/uncommon words
+
+    // Initializes words array and other functions
     init();
 
     var textField = document.getElementById("edit-body-und-0-value");
     var story = "";
-    for (var i = 0; i < getRand(365, 400); i) {
-        story += " " + words[getRand(0, 19)].toProperCase();
-        i++;
-        story += " " + words[getRand(20, words.length - 1)];
-        i++;
-        for (var j = 2; j < getRand(5, 25); j++) {
-            story += " " + words[getRand(0, 19)];
-            i++;
-            j++;
-            story += " " + words[getRand(20, words.length - 1)];
-            i++;
-            j++;
+    var numWords = getRand(MIN_WORDS_ENTRY, MAX_WORDS_ENTRY);
+
+    console.log("Number of words: " + numWords);
+
+    for (var i = 0; i < numWords; i) {
+        // Adds a space at the beginning of each sentence
+        if (i !== 0) story += " ";
+
+        for (var j = 0; j < getRand(MIN_WORDS_SENTENCE, MAX_WORDS_SENTENCE); i += 2, j += 2) {
+            // Adds an uppercase common word if it is the first word of the sentence, otherwise adds a lowercase common word
+            if (j === 0) {
+                story += words[getRand(0, WORD_THOLD - 1)].toProperCase();
+            } else {
+                story += " " + words[getRand(0, WORD_THOLD - 1)];
+            }
+            // Adds an uncommon word
+            story += " " + words[getRand(WORD_THOLD, words.length - 1)];
         }
+
+        // Adds a period at the end of the sentence
         story += ".";
     }
+
+    // Appends the story text inside the text entry box
     textField.value = story;
+
+    // Word count does not update unless text box is clicked on
     textField.focus();
 })(function() {
-    window.getRand = function(floor, ceiling) {
-        var range = ceiling - floor;
-        var rand = Math.round(range * Math.random()) + floor;
-        console.log("Rand: " + rand);
-        return rand;
-    };
-
+    // Changes the first letter of a string to uppercase
     String.prototype.toProperCase = function() {
         return this.replace(/\w\S*/g, function(txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         });
     };
+
+    // Returns a random number between floor and ceiling
+    window.getRand = function(floor, ceiling) {
+        var range = ceiling - floor;
+        var rand = Math.round(range * Math.random()) + floor;
+
+        return rand;
+    };
+
+    // Array of the 1000 most common words in the English language in order
     window.words = [
         "the",
         "of",
