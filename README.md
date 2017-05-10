@@ -5,7 +5,7 @@ For those people who are too lazy to write 365 words a day.
 
 To use this script you will need to install Tampermonkey for your web browser. https://tampermonkey.net/
 
-Once Tampermonkey is installed, click on the file "aw365_v0.1.0.user.js" and select "Raw". Tampermonkey should automatically pop up prompting you to install the userscript. Click install to continue.
+Once Tampermonkey is installed, click on the file "aw365_v0.1.x.user.js" and select "Raw". Tampermonkey should automatically pop up prompting you to install the userscript. Click install to continue.
 
 ## USAGE
 
